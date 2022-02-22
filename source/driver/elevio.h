@@ -10,18 +10,19 @@
 
 /** Enum for motor directions */  
 typedef enum {
-    DIRN_DOWN   = -1,               /**< Motor direction is down */
-    DIRN_STOP   = 0,                /**< Stop the motor */
-    DIRN_UP     = 1                
+    DIRN_DOWN   = -1,               /** Motor direction is down */
+    DIRN_STOP   = 0,                /** Stop the motor */
+    DIRN_UP     = 1                 /** Motor direction is down */
 } MotorDirection;
 
 
 #define N_BUTTONS 3
 
+/** Enum for button types */
 typedef enum { 
-    BUTTON_HALL_UP      = 0,
-    BUTTON_HALL_DOWN    = 1,
-    BUTTON_CAB          = 2
+    BUTTON_HALL_UP      = 0,        /** Up button */
+    BUTTON_HALL_DOWN    = 1,        /** Down button */
+    BUTTON_CAB          = 2         /** Button in cab */
 } ButtonType;
 
 /**
@@ -67,9 +68,12 @@ void elevio_doorOpenLamp(int value);
 void elevio_stopLamp(int value);
 
 /**
-* @brief  /TODO
+* @brief Checks if a button is called
 *
-* @param[in] value integer set to 1 if the stop button is being pressed
+* @param[in] floor  The floor of the button
+* @param[in] button The button type being pressed
+*
+* @return 1 if call button is being pressed, else return 0
 */
 int elevio_callButton(int floor, ButtonType button);
 
