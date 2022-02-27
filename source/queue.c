@@ -18,7 +18,7 @@ void EnqueueBack(Request* req) {
 
 // Adds request to first element in queue by recreating it and moving elements one index forward
 void EnqueueFront(Request* req) {
-    if (isMainQueueEmpty) {
+    if (isMainQueueEmpty()) {
         // If the queue is empty the behavior of these methods is the same, but this is more performance efficient
         EnqueueBack(req);
     }
@@ -36,12 +36,12 @@ void EnqueueFront(Request* req) {
 }
 
 
-bool isMainQueueEmpty() {
+bool isMainQueueEmpty(void) {
     return mainQueue == blankQueue;
 }
 
 // Returns first element and remakes queue moving each element one index back
-Request* Dequeue() {       
+Request* Dequeue(void) {       
     Request* retptr = mainQueue[0];
 
     if (!isMainQueueEmpty()) {
