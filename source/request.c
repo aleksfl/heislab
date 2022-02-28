@@ -14,5 +14,5 @@ void createRequest(int buttonFloor, int buttonType, int elevFloor) {
         req->but = Up;
         req->loc = buttonFloor;
     }
-    EnqueueFront(req);            //lag bedre system etterhvert, husk å dealloker etter bruk.
+    EnqueueBack(req);            //lag bedre system etterhvert, husk å dealloker etter bruk.
 }
