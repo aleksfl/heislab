@@ -24,13 +24,14 @@ int main(){
             if (elevio_stopButton()) {                       
                 currState = Stop;
             }
+            break;
         }
         case Up: {
-            checkButtonInput(*matQueue);
+            CheckButtons();
 
         }
         case Down: {
-            checkButtonInput(*matQueue);
+            CheckButtons();
         }
         case Stop: {
              elevio_stopLamp(1);
