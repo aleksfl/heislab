@@ -7,7 +7,25 @@
 #include "request.h"
 
 
+int nullMatrix[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
+int matQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
+
+
+
+
+
+
+int main(){
+    
+    while(1){
+
+    }
+}
+
+
+
+/*
 int main(){
     elevio_init();
     
@@ -55,3 +73,5 @@ int main(){
 
     return 0;
 }
+
+/*

@@ -6,7 +6,7 @@ struct Request *blankQueue[] = {nullptr, nullptr, nullptr, nullptr, nullptr, nul
 struct Request *mainQueue[] = blankQueue;
 
 // Adds request to first blank element in the main queue
-void EnqueueBack(Request* req) {
+void EnqueueBack(struct Request* req) {
 	for (i = 0; i < 10; i++ ) {
         // Standard behaviour
         if (mainQueue[i] == nullptr) {            
@@ -17,7 +17,7 @@ void EnqueueBack(Request* req) {
 }
 
 // Adds request to first element in queue by recreating it and moving elements one index forward
-void EnqueueFront(Request* req) {
+void EnqueueFront(struct Request* req) {
     if (isMainQueueEmpty()) {
         // If the queue is empty the behavior of these methods is the same, but this is more performance efficient
         EnqueueBack(req);
@@ -41,8 +41,8 @@ bool isMainQueueEmpty(void) {
 }
 
 // Returns first element and remakes queue moving each element one index back
-Request* Dequeue(void) {       
-    Request* retptr = mainQueue[0];
+struct Request* Dequeue(void) {       
+    struct Request* retptr = mainQueue[0];
 
     if (!isMainQueueEmpty()) {
         if (retptr == nullptr) {
