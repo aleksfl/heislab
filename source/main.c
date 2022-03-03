@@ -65,6 +65,7 @@ int main(){
                             }
                             else {
                                 RemoveFromQueue(f);
+                                currState = Wait;
                             }
                         }
                     }
@@ -79,10 +80,10 @@ int main(){
                     elevio_floorIndicator(currFloor);
                 }
                 if(matQueue[currFloor-1][BUTTON_HALL_UP] && matQueue[currFloor-1][BUTTON_CAB]){
-                    currState = Standby;
+                    currState = Wait;
                 }
                 if(currFloor = N_FLOORS) {
-                    currState = Standby;
+                    currState = Wait;
                     currDir = DIRN_STOP; 
                 }
             }
@@ -97,10 +98,10 @@ int main(){
                     elevio_floorIndicator(currFloor);
                 }
                 if(matQueue[currFloor-1][BUTTON_HALL_DOWN] && matQueue[currFloor-1][BUTTON_CAB]){
-                    currState = Standby;
+                    currState = Wait;
                 }
                 if(currFloor = 1) {
-                    currState = Standby;
+                    currState = Wait;
                     currDir = DIRN_STOP; 
                 }
             }
