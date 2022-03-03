@@ -18,3 +18,5 @@ void TryCloseDoor(void);
 void CheckButtons(void);
 
 void ClearQueue(void);
+
+void RemoveFromQueue(int floor);
