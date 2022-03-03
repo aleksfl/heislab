@@ -4,7 +4,6 @@
 #include "elevator.h"
 #include "utils.h"
 
-int nullMatrix[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
 int matQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
@@ -15,11 +14,48 @@ int DoorState = 1;
 
 
 int main(){
-    
+    int currState = Init;
     while(1){
+        switch (currState){
+        case Init: {
+            elevio_init();
+            for(int i = 0; i<N_FLOORS; i++) {
+                for(int j = 0; j<N_BUTTONS; j++){
+                    matQueue[i][j] = 0;
+                }
+            }
+            currState = Standby;
+            break;
+        }
+        case Standby: {
+            for(int f = 0; f<N_FLOORS; f++) {
+                for(int b = 0; b<N_BUTTONS; b++){
+                    int btnPressed = elevio_callButton(f+1, b+1);
+                    if (btnPressed) {
+                        matQueue[f][b] = 1;
+                        elevio_buttonLamp(f, b, btnPressed);
+                    }
+                }
+            }
+        }
+        case Up: {
+
+        }
+        case Down: {
+
+        }
+        case Stop: {
+
+        }
+
+        default:
+            currState = Init;
+            break;
+        }
 
     }
 }
+
 
 
 
