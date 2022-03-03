@@ -4,9 +4,6 @@
 #include "elevator.h"
 #include "utils.h"
 
-
-int matQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
-
 int main(){
     int currState = Init;
     while(1){
@@ -21,15 +18,9 @@ int main(){
             currState = Standby;
             break;
         }
-        case Standby: {
-            for(int f = 0; f<N_FLOORS; f++) {
-                for(int b = 0; b<N_BUTTONS; b++){
-                    int btnPressed = elevio_callButton(f+1, b+1);
-                    if (btnPressed) {
-                        matQueue[f][b] = 1;
-                        elevio_buttonLamp(f, b, btnPressed);
-                    }
-                }
+        case Standby: {        
+            if (elevio_stopButton()) {                       
+                currState = Stop;
             }
         }
         case Up: {
@@ -39,6 +30,10 @@ int main(){
 
         }
         case Stop: {
+             elevio_stopLamp(1);
+        }
+
+        case Wait: {
 
         }
 

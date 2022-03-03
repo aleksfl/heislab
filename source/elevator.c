@@ -3,6 +3,7 @@
 
 // 0 indicates door is closed, 1 that it is open
 int DoorState = 0;
+int matQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
 void TryOpenDoor(void) {
 	// Only open door if it is closed
@@ -27,3 +28,15 @@ void TryCloseDoor(void) {
 	elevio_doorOpenLamp(DoorState);
 }
 
+void CheckButtons(void) {
+	for(int f = 0; f<N_FLOORS; f++) {
+                for(int b = 0; b<N_BUTTONS; b++){
+                    int btnPressed = elevio_callButton(f+1, b+1);
+                    if (btnPressed) {
+                        matQueue[f][b] = 1;
+                        elevio_buttonLamp(f, b, btnPressed);
+                    }
+                    
+                }
+            }
+}
