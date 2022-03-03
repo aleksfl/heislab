@@ -9,7 +9,7 @@
 #include "elevio.h"
 #include "con_load.h"
 
-static int sockfd;
+static int sockfd; 
 static pthread_mutex_t sockmtx;
 
 void elevio_init(void){

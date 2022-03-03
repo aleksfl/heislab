@@ -9,15 +9,12 @@ int main(){
     int currDir = DIRN_STOP;
     int currState = Init;
     while(1){
+
         switch (currState){
         case Init: {
             printf("Initializing");
             elevio_init();
-            for(int i = 0; i<N_FLOORS; i++) {
-                for(int j = 0; j<N_BUTTONS; j++){
-                    matQueue[i][j] = 0;
-                }
-            }
+            
             currState = Standby;
             break;
         }
@@ -58,18 +55,37 @@ int main(){
             break;
         }
         case Stop: {
-             elevio_stopLamp(1);
+             elevio_stopLamp(1);             
+             currState = Wait;      
+             break;       
         }
 
-        case Wait: {
-
+        case Wait: {          
+            elevio_motorDirection(DIRN_STOP);
+            TryOpenDoor();  
+            int turnedOffStop = 0;
+            for (int i=1; i<=300; i++) {
+                CheckButtons();
+                if (elevio_stopButton()) {                       
+                currState = Stop;
+                } else if (!turnedOffStop) {
+                    elevio_stopLamp(0);
+                    // Done for performance benefit
+                    turnedOffStop = 1;
+                }
+                milliSleep(10);
+            }
+            // return to previous course
+            TryCloseDoor();
+            currState = Standby;
+            break;
         }
 
         default:
             currState = Init;
             break;
         }
-
+    milliSleep(10);
     }
 }
 
