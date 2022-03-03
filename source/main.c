@@ -6,10 +6,12 @@
 
 
 int main(){
+    int currDir = DIRN_STOP;
     int currState = Init;
     while(1){
         switch (currState){
         case Init: {
+            printf("Initializing");
             elevio_init();
             for(int i = 0; i<N_FLOORS; i++) {
                 for(int j = 0; j<N_BUTTONS; j++){
@@ -28,10 +30,34 @@ int main(){
         }
         case Up: {
             CheckButtons();
+            int currFloor = elevio_floorSensor();
+            if(currFloor>0 && currFloor<=N_FLOORS) {
+                if(matQueue[currFloor][BUTTON_HALL_UP] && matQueue[currFloor][BUTTON_HALL_UP]){
+                    currState = Standby;
+                }
+                if(currFloor = N_FLOORS) {
+                    currDir = DIRN_STOP; 
+                    currState = Standby;
+                }
+                else if(currFloor = 1){
+                    currState = Init;
+                }
+            }
+            break;
 
         }
         case Down: {
             CheckButtons();
+            int currFloor = elevio_floorSensor();
+            if(currFloor>0 && currFloor<=N_FLOORS) {
+                if(matQueue[currFloor][BUTTON_HALL_UP]){
+                    currState = Standby;
+                }
+                if(currFloor = N_FLOORS) {
+                    currDir = DIRN_STOP; 
+                    currState = Standby;
+                }
+            }
         }
         case Stop: {
              elevio_stopLamp(1);
