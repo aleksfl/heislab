@@ -55,16 +55,16 @@ int main(){
                 for(int f = 0; f<N_FLOORS; f++) {
                     for(int b = 0; b<N_BUTTONS; b++){
                         if(matQueue[f][b]) {
-                            if(currFloor<(f+1)) {
-                                currDir = DIRN_UP;
-                                currState = Up;
-                            }
-                            else if(currFloor>(f+1)) {
+                            if(currFloor>(f+1)) {
                                 currDir = DIRN_DOWN;
                                 currState = Down;
                             }
+                            else if(currFloor<(f+1)) {
+                                currDir = DIRN_UP;
+                                currState = Up;
+                            }
                             else {
-                                
+                                RemoveFromQueue(f);
                             }
                         }
                     }
