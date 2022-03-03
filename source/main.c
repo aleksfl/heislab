@@ -141,6 +141,18 @@ int main(){
              }             
              break;       
         }
+        case Obstructed: {
+            if (elevio_stopButton()) {                       
+                currState = Stop;
+                currDir = DIRN_STOP;
+                break;
+            }
+            CheckButtons();      
+            if (!elevio_obstruction()) {
+                currState = Wait;
+            }
+            currState = Obstructed;
+        }
 
         case Wait: {          
             elevio_motorDirection(DIRN_STOP);
@@ -154,14 +166,14 @@ int main(){
                     elevio_stopLamp(0);
                     // Done for performance benefit
                     turnedOffStop = 1;
-                }
-                CheckButtons();                
+                }                
+                CheckButtons();                                
                 milliSleep(10);
             }
             // return to previous course
             TryCloseDoor();
             if (DoorState == 1 && elevio_obstruction()) {
-                currState = Wait;
+                currState = Obstructed;
             } else {
                 currState = Standby;
             }
