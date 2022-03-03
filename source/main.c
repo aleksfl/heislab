@@ -32,15 +32,12 @@ int main(){
             CheckButtons();
             int currFloor = elevio_floorSensor();
             if(currFloor>0 && currFloor<=N_FLOORS) {
-                if(matQueue[currFloor][BUTTON_HALL_UP] && matQueue[currFloor][BUTTON_HALL_UP]){
+                if(matQueue[currFloor][BUTTON_HALL_UP] && matQueue[currFloor][BUTTON_CAB]){
                     currState = Standby;
                 }
                 if(currFloor = N_FLOORS) {
                     currDir = DIRN_STOP; 
                     currState = Standby;
-                }
-                else if(currFloor = 1){
-                    currState = Init;
                 }
             }
             break;
@@ -50,14 +47,15 @@ int main(){
             CheckButtons();
             int currFloor = elevio_floorSensor();
             if(currFloor>0 && currFloor<=N_FLOORS) {
-                if(matQueue[currFloor][BUTTON_HALL_UP]){
+                if(matQueue[currFloor][BUTTON_HALL_UP] && matQueue[currFloor][BUTTON_CAB]){
                     currState = Standby;
                 }
-                if(currFloor = N_FLOORS) {
+                if(currFloor = 1) {
                     currDir = DIRN_STOP; 
                     currState = Standby;
                 }
             }
+            break;
         }
         case Stop: {
              elevio_stopLamp(1);
