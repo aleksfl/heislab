@@ -36,13 +36,31 @@ int main(){
             }
             else if(currDir==DIRN_DOWN) {
                 currDir = DIRN_STOP;
-                for(int f = currFloor+1; f<=N_FLOORS; f++) {
-                    if(matQueue[currFloor-1][BUTTON_HALL_UP] && matQueue[currFloor-1][BUTTON_CAB]) {
-                        currDir = DIRN_UP;
+                for(int f = currFloor-1; f>0; f--) {
+                    if(matQueue[currFloor-1][BUTTON_HALL_DOWN] && matQueue[currFloor-1][BUTTON_CAB]) {
+                        currDir = DIRN_DOWN;
                     }
                 }
             }
-
+            else {
+                for(int f = 0; f<N_FLOORS; f++) {
+                    for(int b = 0; b<N_BUTTONS; b++){
+                        if(matQueue[f][b]) {
+                            if(currFloor<(f+1)) {
+                                currDir = DIRN_UP;
+                                currState = Up;
+                            }
+                            else if(currFloor>(f+1)) {
+                                currDir = DIRN_DOWN;
+                                currState = Down;
+                            }
+                            else {
+                                
+                            }
+                        }
+                    }
+                }
+            }
             break;
         }
         case Up: {
