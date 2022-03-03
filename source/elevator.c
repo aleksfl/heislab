@@ -30,16 +30,16 @@ void TryCloseDoor(void) {
 
 void CheckButtons(void) {
 	if (!elevio_stopButton()) {   
-	for(int f = 0; f<N_FLOORS; f++) {
-        for(int b = 0; b<N_BUTTONS; b++){
-            int btnPressed = elevio_callButton(f+1, b+1);
-            if (btnPressed) {
-                matQueue[f][b] = 1;
-                elevio_buttonLamp(f, b, btnPressed);
+        for(int f = 0; f<N_FLOORS; f++) {
+            for(int b = 0; b<N_BUTTONS; b++){
+                int btnPressed = elevio_callButton(f+1, b+1);
+                if (btnPressed) {
+                    matQueue[f][b] = 1;
+                    elevio_buttonLamp(f, b, btnPressed);
+                }
             }
-		}
-	}
-}
+        }
+    }
 }
 
 void ClearQueue(void) {
@@ -52,8 +52,9 @@ void ClearQueue(void) {
                     matQueue[i][j] = 0;
                 }
             }
-	elevio_stopLamp(0);      
-}
+	elevio_stopLamp(0);             
+    }
+
 
             
     
