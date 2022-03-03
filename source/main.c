@@ -7,12 +7,6 @@
 
 int matQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
-// 1 indicates door is closed, 0 that it is open
-int DoorState = 1;
-
-
-
-
 int main(){
     int currState = Init;
     while(1){

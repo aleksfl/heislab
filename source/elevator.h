@@ -9,3 +9,7 @@ typedef enum {
     Stop                    
 } ElevState;
 
+
+void TryOpenDoor(void);
+void TryCloseDoor(void);
+
