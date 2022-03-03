@@ -9,6 +9,7 @@ typedef enum {
     Up,
     Down,
     Stop,
+    Obstructed,
     Wait                    
 } ElevState;
 

@@ -15,6 +15,7 @@ int main(){
         case Init: {
             printf("Initializing");
             elevio_init();
+            elevio_stopLamp(0);             
             ClearQueue();
             if (elevio_floorSensor() == -1) {
                 elevio_motorDirection(DIRN_DOWN);
@@ -31,11 +32,12 @@ int main(){
         }
         case Standby: {    
             elevio_motorDirection(DIRN_STOP);    
-            CheckButtons();
-            if (elevio_stopButton()) {                       
+             if (elevio_stopButton()) {                       
                 currState = Stop;
                 currDir = DIRN_STOP;
+                break;
             }
+            CheckButtons();           
             if(currDir==DIRN_UP) {
                 currDir = DIRN_STOP;
                 for(int f = currFloor+1; f<=N_FLOORS; f++) {
@@ -81,6 +83,11 @@ int main(){
             break;
         }
         case Up: {
+            if (elevio_stopButton()) {                       
+                currState = Stop;
+                currDir = DIRN_STOP;
+                break;
+            }
             CheckButtons();
             if(currFloor>0 && currFloor<=N_FLOORS) {
                 if(prevFloor!=currFloor){
@@ -101,6 +108,11 @@ int main(){
 
         }
         case Down: {
+            if (elevio_stopButton()) {                       
+                currState = Stop;
+                currDir = DIRN_STOP;
+                break;
+            }
             CheckButtons();
             if(currFloor>0 && currFloor<=N_FLOORS) {
                 if(prevFloor!=currFloor){
@@ -120,8 +132,13 @@ int main(){
             break;
         }
         case Stop: {
+            ClearQueue();
              elevio_stopLamp(1);             
-             currState = Wait;      
+             if (elevio_floorSensor() == -1) {
+                 currState = Standby;
+             }  else {
+                currState = Wait;      
+             }             
              break;       
         }
 
@@ -129,15 +146,16 @@ int main(){
             elevio_motorDirection(DIRN_STOP);
             TryOpenDoor();  
             int turnedOffStop = 0;
-            for (int i=1; i<=300; i++) {
-                CheckButtons();
+            for (int i=1; i<=300; i++) {                
                 if (elevio_stopButton()) {                       
                 currState = Stop;
+                break;
                 } else if (!turnedOffStop) {
                     elevio_stopLamp(0);
                     // Done for performance benefit
                     turnedOffStop = 1;
                 }
+                CheckButtons();                
                 milliSleep(10);
             }
             // return to previous course

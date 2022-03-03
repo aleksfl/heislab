@@ -51,8 +51,7 @@ void ClearQueue(void) {
 
                     matQueue[i][j] = 0;
                 }
-            }
-	elevio_stopLamp(0);             
+            }	
     }
 
 void RemoveFromQueue(int floor) {
