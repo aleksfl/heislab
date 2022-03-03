@@ -27,3 +27,15 @@ void TryCloseDoor(void) {
 	elevio_doorOpenLamp(DoorState);
 }
 
+void checkButtonInput(int *matrixQueue[N_FLOORS][N_BUTTONS]) {
+    for(int f = 0; f<N_FLOORS; f++) {
+        for(int b = 0; b<N_BUTTONS; b++){
+            int btnPressed = elevio_callButton(f+1, b+1);
+            if (btnPressed) {
+                *matrixQueue[f][b] = 1;
+                elevio_buttonLamp(f, b, btnPressed);
+            }
+        }
+    }
+}
+

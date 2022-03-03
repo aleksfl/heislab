@@ -12,4 +12,4 @@ typedef enum {
 
 void TryOpenDoor(void);
 void TryCloseDoor(void);
-
+void checkButtonInput(int *matrixQueue[N_FLOORS][N_BUTTONS]);

@@ -5,7 +5,7 @@
 #include "utils.h"
 
 
-int matQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
+int volatile matQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
 int main(){
     int currState = Init;
@@ -22,21 +22,14 @@ int main(){
             break;
         }
         case Standby: {
-            for(int f = 0; f<N_FLOORS; f++) {
-                for(int b = 0; b<N_BUTTONS; b++){
-                    int btnPressed = elevio_callButton(f+1, b+1);
-                    if (btnPressed) {
-                        matQueue[f][b] = 1;
-                        elevio_buttonLamp(f, b, btnPressed);
-                    }
-                }
-            }
+            checkButtonInput(*matQueue);
         }
         case Up: {
+            checkButtonInput(*matQueue);
 
         }
         case Down: {
-
+            checkButtonInput(*matQueue);
         }
         case Stop: {
 
