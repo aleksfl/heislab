@@ -19,6 +19,7 @@ int main(){
             break;
         }
         case Standby: {        
+            CheckButtons();
             if (elevio_stopButton()) {                       
                 currState = Stop;
             }
