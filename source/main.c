@@ -55,10 +55,12 @@ int main(){
                     currState = Standby;
                 }
             }
+            break;
         }
         case Stop: {
              elevio_stopLamp(1);             
-             currState = Wait;             
+             currState = Wait;      
+             break;       
         }
 
         case Wait: {          
@@ -79,6 +81,7 @@ int main(){
             // return to previous course
             TryCloseDoor();
             currState = Standby;
+            break;
         }
 
         default:
