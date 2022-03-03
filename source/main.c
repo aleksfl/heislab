@@ -14,7 +14,16 @@ int main(){
         case Init: {
             printf("Initializing");
             elevio_init();
-            
+            ClearQueue();
+            if (elevio_floorSensor() == -1) {
+                elevio_motorDirection(DIRN_DOWN);
+                while (elevio_floorSensor() == -1) {
+                    // Do nothing, floor is not defined
+                    milliSleep(10);
+                }                 
+                elevio_motorDirection(DIRN_STOP);  
+                elevio_floorIndicator(elevio_floorSensor());                     
+            }
             currState = Standby;
             break;
         }
@@ -80,7 +89,12 @@ int main(){
             }
             // return to previous course
             TryCloseDoor();
-            currState = Standby;
+            if (DoorState == 1 && elevio_obstruction()) {
+                currState = Wait;
+            } else {
+                currState = Standby;
+            }
+            
             break;
         }
 
