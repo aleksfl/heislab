@@ -1,16 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
-#include <time.h>
 #include "elevator.h"
 #include "utils.h"
-
 
 int nullMatrix[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
 int matQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
-
+// 1 indicates door is closed, 0 that it is open
+int DoorState = 1;
 
 
 
