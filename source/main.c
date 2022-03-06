@@ -32,7 +32,7 @@ int main(){
         }
         case Standby: {    
             elevio_motorDirection(DIRN_STOP);    
-             if (elevio_stopButton()) {                       
+            if (elevio_stopButton()) {                       
                 currState = Stop;
                 currDir = DIRN_STOP;
                 break;
@@ -40,8 +40,8 @@ int main(){
             CheckButtons();           
             if(currDir==DIRN_UP) {
                 currDir = DIRN_STOP;
-                for(int f = currFloor+1; f<=N_FLOORS; f++) {
-                    if(matQueue[currFloor-1][BUTTON_HALL_UP] && matQueue[currFloor-1][BUTTON_CAB]) {
+                for(int f = currFloor+1; f<N_FLOORS; f++) {
+                    if(matQueue[currFloor][BUTTON_HALL_UP] && matQueue[currFloor][BUTTON_CAB]) {
                         currDir = DIRN_UP;
                         currState = Up;
                         elevio_motorDirection(DIRN_UP);
@@ -50,8 +50,8 @@ int main(){
             }
             else if(currDir==DIRN_DOWN) {
                 currDir = DIRN_STOP;
-                for(int f = currFloor-1; f>0; f--) {
-                    if(matQueue[currFloor-1][BUTTON_HALL_DOWN] && matQueue[currFloor-1][BUTTON_CAB]) {
+                for(int f = currFloor-1; f>=0; f--) {
+                    if(matQueue[currFloor][BUTTON_HALL_DOWN] && matQueue[currFloor][BUTTON_CAB]) {
                         currDir = DIRN_DOWN;
                         currState = Down;
                         elevio_motorDirection(DIRN_DOWN);
@@ -62,12 +62,12 @@ int main(){
                 for(int f = 0; f<N_FLOORS; f++) {
                     for(int b = 0; b<N_BUTTONS; b++){
                         if(matQueue[f][b]) {
-                            if(currFloor>(f+1)) {
+                            if(currFloor>f) {
                                 currDir = DIRN_DOWN;
                                 currState = Down;
                                 elevio_motorDirection(DIRN_DOWN);
                             }
-                            else if(currFloor<(f+1)) {
+                            else if(currFloor<f) {
                                 currDir = DIRN_UP;
                                 currState = Up;
                                 elevio_motorDirection(DIRN_UP);
@@ -89,12 +89,12 @@ int main(){
                 break;
             }
             CheckButtons();
-            if(currFloor>0 && currFloor<=N_FLOORS) {
+            if(currFloor>=0 && currFloor<N_FLOORS) {
                 if(prevFloor!=currFloor){
                     elevio_floorIndicator(currFloor);
                 }
-                if(matQueue[currFloor-1][BUTTON_HALL_UP] && matQueue[currFloor-1][BUTTON_CAB]){
-                    RemoveFromQueue(currFloor-1);
+                if(matQueue[currFloor][BUTTON_HALL_UP] && matQueue[currFloor][BUTTON_CAB]){
+                    RemoveFromQueue(currFloor);
                     currState = Wait;
                 }
                 if(currFloor = N_FLOORS) {
@@ -114,15 +114,15 @@ int main(){
                 break;
             }
             CheckButtons();
-            if(currFloor>0 && currFloor<=N_FLOORS) {
+            if(currFloor>=0 && currFloor<N_FLOORS) {
                 if(prevFloor!=currFloor){
                     elevio_floorIndicator(currFloor);
                 }
-                if(matQueue[currFloor-1][BUTTON_HALL_DOWN] && matQueue[currFloor-1][BUTTON_CAB]){
-                    RemoveFromQueue(currFloor-1);
+                if(matQueue[currFloor][BUTTON_HALL_DOWN] && matQueue[currFloor][BUTTON_CAB]){
+                    RemoveFromQueue(currFloor);
                     currState = Wait;
                 }
-                if(currFloor = 1) {
+                if(currFloor = 0) {
                     currState = Wait;
                     currDir = DIRN_STOP; 
                     elevio_motorDirection(DIRN_STOP); 
