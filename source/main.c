@@ -151,7 +151,7 @@ int main(){
             if (!elevio_obstruction()) {
                 currState = Wait;
             }
-            currState = Obstructed;
+            //currState = Obstructed;
         }
 
         case Wait: {          

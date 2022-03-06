@@ -78,7 +78,7 @@ void elevio_stopLamp(int value);
 int elevio_callButton(int floor, ButtonType button);
 
 /**
-* @brief Checks the current floor of the eelevator cab.
+* @brief Checks the current floor of the elevator cab.
 *
 * @return floor value if at a valid floor, else return -1
 */
