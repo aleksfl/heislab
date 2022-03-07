@@ -16,12 +16,13 @@ int main(){
             printf("Current floor: %d",currFloor);
         }
         if(k==100) {
-            for(int f = 0; f<N_FLOORS; f++) {
+            for(int f = 3; f>=0; f--) {
                 printf("\n");
                 for(int b = 0; b<N_BUTTONS; b++){
                     printf(" %d",matQueue[f][b]);
                 }
             }
+            printf("\n");
             k=0;
         }
         switch (currState){
