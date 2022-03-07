@@ -96,6 +96,7 @@ int main(){
                 }
                 if(matQueue[currFloor][BUTTON_HALL_UP] || matQueue[currFloor][BUTTON_CAB]){
                     RemoveFromQueue(currFloor);
+                    elevio_motorDirection(DIRN_STOP); 
                     currState = Wait;
                 }
                 if(currFloor == (N_FLOORS-1)) {
