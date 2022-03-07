@@ -9,9 +9,13 @@ int main(){
     int currDir = DIRN_STOP;
     int currState = Init;
     int prevFloor = -1;
+    int k = 0;
     while(1){
         int currFloor = elevio_floorSensor();
-        printf("Current floor: %d",currFloor);
+        if(k==20) {
+            printf("Current floor: %d",currFloor);
+            k=0;
+        }
         switch (currState){
         case Init: {
             printf("Initializing");
@@ -186,6 +190,7 @@ int main(){
             currState = Init;
             break;
         }
+        k++;
     milliSleep(10);
     }
 }
