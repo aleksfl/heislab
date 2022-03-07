@@ -19,7 +19,7 @@ int main(){
             for(int f = 0; f<N_FLOORS; f++) {
                 printf("\n");
                 for(int b = 0; b<N_BUTTONS; b++){
-                    printf(matQueue[f][b]);
+                    printf("%d",matQueue[f][b]);
                 }
             }
             k=0;
