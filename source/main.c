@@ -13,7 +13,7 @@ int main(){
     while(1){
         int currFloor = elevio_floorSensor();
         if(!k%20) {
-            printf("Current floor: %d",currFloor);
+            printf("Current floor: %d \n",currFloor);
         }
         if(k==100) {
             for(int f = 3; f>=0; f--) {
