@@ -45,9 +45,10 @@ void CheckButtons(void) {
 void ClearQueue(void) {
 	for(int i = 0; i<N_FLOORS; i++) {
 		for(int j = 0; j<N_BUTTONS; j++){
-			if (matQueue[i][j] == 1) {
-				elevio_buttonLamp(i, j, 0);
-			}
+			elevio_buttonLamp(i, j, 0);
+			//if (matQueue[i][j] == 1) {
+				//elevio_buttonLamp(i, j, 0);
+			//}
 			matQueue[i][j] = 0;
 		}
 	}	
