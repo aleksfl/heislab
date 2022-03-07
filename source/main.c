@@ -12,8 +12,16 @@ int main(){
     int k = 0;
     while(1){
         int currFloor = elevio_floorSensor();
-        if(k==20) {
+        if(!k%20) {
             printf("Current floor: %d",currFloor);
+        }
+        if(k==100) {
+            for(int f = 0; f<N_FLOORS; f++) {
+                printf("\n");
+                for(int b = 0; b<N_BUTTONS; b++){
+                    printf(matQueue[f][b]);
+                }
+            }
             k=0;
         }
         switch (currState){
