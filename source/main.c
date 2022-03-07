@@ -8,9 +8,10 @@
 int main(){
     int currDir = DIRN_STOP;
     int currState = Init;
-    int currFloor = elevio_floorSensor();
     int prevFloor = -1;
     while(1){
+        int currFloor = elevio_floorSensor();
+        printf("Current floor: %d",currFloor)
         switch (currState){
         case Init: {
             printf("Initializing");
