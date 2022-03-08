@@ -36,10 +36,10 @@ int main(){
                 while (elevio_floorSensor() == -1) {
                     // Do nothing, floor is not defined
                     milliSleep(10);
-                }                 
-                elevio_motorDirection(DIRN_STOP);  
-                elevio_floorIndicator(elevio_floorSensor());                     
+                }                              
             }
+            elevio_motorDirection(DIRN_STOP);  
+            elevio_floorIndicator(elevio_floorSensor());                     
             currState = Standby;
             currDir = DIRN_STOP;
             break;
