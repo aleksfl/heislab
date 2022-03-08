@@ -5,8 +5,7 @@
 #include "utils.h"
 
 
-int main(){
-    int StopLampState = 0;
+int main(){    
     int currDir = DIRN_STOP;
     int currState = Init;
     int prevFloor = -1;
@@ -164,10 +163,9 @@ int main(){
         }
         case Stop: {
             currDir = DIRN_STOP;
-            ClearQueue();
-             if (StopLampState == 0) {
-                elevio_stopLamp(1);             
-             } 
+            ClearQueue();             
+            elevio_stopLamp(1);             
+             
              if (elevio_floorSensor() == -1) {
                  currState = Standby;
              }  else {
@@ -195,18 +193,17 @@ int main(){
                 currState = Stop;
                 break;                                
                 } else {
-                    if (StopLampState == 1) {
-                        elevio_stopLamp(0);             
-                    } 
+                    
+                //elevio_stopLamp(0);             
+                     
                 }
                          
                 CheckButtons();                                
                 milliSleep(10);
             }
-            // return to previous course
-            if (StopLampState == 1) {
-            elevio_stopLamp(0);
-            }
+            // return to previous course            
+            //elevio_stopLamp(0);
+            
             TryCloseDoor();            
             if (DoorState == 1 && elevio_obstruction()) {
                 currState = Obstructed;
