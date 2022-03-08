@@ -10,22 +10,22 @@ int main(){
     int currDir = DIRN_STOP;
     int currState = Init;
     int prevFloor = -1;
-    //int k = 0;
+    int k = 0;
     while(1){
         int currFloor = elevio_floorSensor();
-        // if(!k%20) {
-        //     printf("Current floor: %d \n",currFloor);
-        // }
-        // if(k==100) {
-        //     for(int f = 3; f>=0; f--) {
-        //         printf("\n");
-        //         for(int b = 0; b<N_BUTTONS; b++){
-        //             printf(" %d",matQueue[f][b]);
-        //         }
-        //     }
-        //     printf("\n");
-        //     k=0;
-        // }
+        if(!k%20) {
+             printf("Current floor: %d \n",currFloor);
+         }
+         if(k==100) {
+             for(int f = 3; f>=0; f--) {
+                 printf("\n");
+                 for(int b = 0; b<N_BUTTONS; b++){
+                     printf(" %d",matQueue[f][b]);
+                 }
+             }
+             printf("\n");
+             k=0;
+        }
         switch (currState){
         case Init: {
             printf("Initializing");
@@ -100,8 +100,7 @@ int main(){
                                 currDir = DIRN_DOWN;
                                 currState = Down;
                                 elevio_motorDirection(DIRN_DOWN);
-                            }
-                            else if(currFloor<lowestDistanceFloor) {
+                            } else if(currFloor<lowestDistanceFloor) {
                                 currDir = DIRN_UP;
                                 currState = Up;
                                 elevio_motorDirection(DIRN_UP);
@@ -222,7 +221,7 @@ int main(){
             currState = Init;
             break;
         }
-        //k++;
+        k++;
     milliSleep(10);
     }
 }
