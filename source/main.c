@@ -30,6 +30,7 @@ int main(){
             printf("Initializing");
             elevio_init();
             elevio_stopLamp(0);             
+            elevio_doorOpenLamp(0);
             ClearQueue();
             if (elevio_floorSensor() == -1) {
                 elevio_motorDirection(DIRN_DOWN);
