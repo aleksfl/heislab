@@ -53,10 +53,8 @@ void ClearQueue(void) {
 }
 
 void RemoveFromQueue(int floor) {
-	 for(int j = 0; j<N_BUTTONS; j++){
-        if (matQueue[floor][j] == 1) {
-            elevio_buttonLamp(floor, j, 0);
-        }
+	 for(int j = 0; j<N_BUTTONS; j++){        
+        elevio_buttonLamp(floor, j, 0);			        
         matQueue[floor][j] = 0;
     }
 }
