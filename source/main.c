@@ -168,11 +168,13 @@ int main(){
         }
         case Stop: {
             currDir = DIRN_STOP;
+            elevio_motorDirection(DIRN_STOP);                          
             ClearQueue();             
             elevio_stopLamp(1);             
              while (elevio_stopButton()) {
                  milliSleep(10);
              }
+             elevio_stopLamp(0);             
              if (elevio_floorSensor() == -1) {
                 currState = Standby;
              }  else {
@@ -194,20 +196,15 @@ int main(){
 
         case Wait: {          
             elevio_motorDirection(DIRN_STOP);                          
+            TryOpenDoor();
             for (int i=1; i<=300; i++) {                
                 if (elevio_stopButton()) {                       
                 currState = Stop;
                 break;                                
-                } else {                    
-                elevio_stopLamp(0);                                  
-                }
-                if (i==1) {
-                    TryOpenDoor();
-                }
+                }                
                 CheckButtons();                                
                 milliSleep(10);
-            }            
-            elevio_stopLamp(0);
+            }                        
             
             TryCloseDoor();            
             if (DoorState == 1 && elevio_obstruction()) {
