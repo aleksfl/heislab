@@ -99,7 +99,9 @@ int main(){
                         }
                     }
                 }
-
+                if (currFloor == -1) {
+                    printf("floor: %d \n",floor);
+                }
                 if (lowestDistanceFloor != -1 && lowestDistance != 0) {
                         if(floor>lowestDistanceFloor) {
                                 currDir = DIRN_DOWN;
