@@ -47,8 +47,7 @@ int main(){
         case Standby: {    
             elevio_motorDirection(DIRN_STOP);    
             if (elevio_stopButton()) {                       
-                currState = Stop;
-                currDir = DIRN_STOP;
+                currState = Stop;                
                 break;
             }
             CheckButtons();           
@@ -110,8 +109,7 @@ int main(){
         }
         case Up: {
             if (elevio_stopButton()) {                       
-                currState = Stop;
-                currDir = DIRN_STOP;
+                currState = Stop;                
                 break;
             }
             CheckButtons();
@@ -138,8 +136,7 @@ int main(){
         }
         case Down: {
             if (elevio_stopButton()) {                       
-                currState = Stop;
-                currDir = DIRN_STOP;
+                currState = Stop;                
                 break;
             }
             CheckButtons();
@@ -164,6 +161,7 @@ int main(){
             break;
         }
         case Stop: {
+            currDir = DIRN_STOP;
             ClearQueue();
              if (StopLampState == 0) {
                 elevio_stopLamp(1);             
