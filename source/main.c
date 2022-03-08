@@ -217,7 +217,7 @@ int main(){
                 currState = Stop;
                 break;                                
                 }                
-                CheckButtons(currFloor);                                
+                CheckButtonsWithFloor(currFloor);                                
                 milliSleep(10);
             }                        
             
