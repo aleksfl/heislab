@@ -10,22 +10,22 @@ int main(){
     int currDir = DIRN_STOP;
     int currState = Init;
     int prevFloor = -1;
-    int k = 0;
+    //int k = 0;
     while(1){
         int currFloor = elevio_floorSensor();
-        if(!k%20) {
-            printf("Current floor: %d \n",currFloor);
-        }
-        if(k==100) {
-            for(int f = 3; f>=0; f--) {
-                printf("\n");
-                for(int b = 0; b<N_BUTTONS; b++){
-                    printf(" %d",matQueue[f][b]);
-                }
-            }
-            printf("\n");
-            k=0;
-        }
+        // if(!k%20) {
+        //     printf("Current floor: %d \n",currFloor);
+        // }
+        // if(k==100) {
+        //     for(int f = 3; f>=0; f--) {
+        //         printf("\n");
+        //         for(int b = 0; b<N_BUTTONS; b++){
+        //             printf(" %d",matQueue[f][b]);
+        //         }
+        //     }
+        //     printf("\n");
+        //     k=0;
+        // }
         switch (currState){
         case Init: {
             printf("Initializing");
@@ -84,7 +84,9 @@ int main(){
                     for(int b = 0; b<N_BUTTONS; b++){
                         if (matQueue[f][b]) {
                             int dist = (currFloor - f)*(currFloor - f);
-                            if (dist == 0) printf("Current floor not removed from queue");
+                            if (dist == 0) {
+                                printf("Current floor not removed from queue");
+                            } 
                             if (lowestDistance == 0 || dist < lowestDistance) {
                             lowestDistance = dist;
                             lowestDistanceFloor = f;
@@ -220,7 +222,7 @@ int main(){
             currState = Init;
             break;
         }
-        k++;
+        //k++;
     milliSleep(10);
     }
 }
