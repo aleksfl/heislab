@@ -88,7 +88,7 @@ int main(){
                 for(int f = 0; f<N_FLOORS; f++) {
                     for(int b = 0; b<N_BUTTONS; b++){
                         if (matQueue[f][b]) {
-                            int dist = (floor - f)*(floor - f);
+                            int dist = calculateDistance(floor, f);
                             if (dist == 0) {
                                 printf("Current floor not removed from queue");
                             } 
