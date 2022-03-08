@@ -81,7 +81,7 @@ int main(){
                     for(int b = 0; b<N_BUTTONS; b++){
                         if (matQueue[currFloor][b]) {
                             RemoveFromQueue(currFloor);
-                            printf("wait 1");
+                            printf("wait 1\n");
                             currState = Wait;
                             break;
                         }
@@ -141,13 +141,13 @@ int main(){
                 for(int b = 0; b<N_BUTTONS; b++){
                     if (matQueue[currFloor][b]) {
                         RemoveFromQueue(currFloor);
-                        printf("wait 2");
+                        printf("wait 2\n");
                         currState = Wait;
                         break;
                     }
                 }
                 if(currFloor == (N_FLOORS-1)) {
-                    printf("wait 3");
+                    printf("wait 3\n");
                     currState = Wait;
                     currDir = DIRN_STOP;
                     elevio_motorDirection(DIRN_STOP); 
@@ -169,13 +169,13 @@ int main(){
                 for(int b = 0; b<N_BUTTONS; b++){
                     if (matQueue[currFloor][b]) {
                         RemoveFromQueue(currFloor);
-                        printf("wait 4");
+                        printf("wait 4\n");
                         currState = Wait;
                         break;
                     }
                 }
                 if(currFloor == 0) {
-                    printf("wait 5");
+                    printf("wait 5\n");
                     currState = Wait;
                     currDir = DIRN_STOP; 
                     elevio_motorDirection(DIRN_STOP); 
@@ -197,7 +197,7 @@ int main(){
              if (elevio_floorSensor() == -1) {
                 currState = Standby;
              }  else {
-                 printf("wait 6");
+                 printf("wait 6\n");
                 currState = Wait;      
              }             
              break;       
@@ -210,7 +210,7 @@ int main(){
             }
             CheckButtons();      
             if (!elevio_obstruction()) {
-                printf("wait 7");
+                printf("wait 7\n");
                 currState = Wait;
             }
         }
