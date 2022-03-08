@@ -181,7 +181,10 @@ int main(){
             currDir = DIRN_STOP;
             elevio_motorDirection(DIRN_STOP);                          
             ClearQueue();             
-            elevio_stopLamp(1);             
+            elevio_stopLamp(1);            
+            if (elevio_floorSensor() != UNDEFINED_FLOOR) {
+                TryOpenDoor();
+            }
              while (elevio_stopButton()) {
                  milliSleep(10);
              }
