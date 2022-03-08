@@ -39,8 +39,10 @@ int main(){
                     milliSleep(10);
                 }                              
             }
+            int floor = elevio_floorSensor();
             elevio_motorDirection(DIRN_STOP);  
-            elevio_floorIndicator(elevio_floorSensor());                     
+            elevio_floorIndicator(floor);                              
+            prevFloor = floor;   
             currState = Standby;
             currDir = DIRN_STOP;
             break;
@@ -138,10 +140,9 @@ int main(){
                     currDir = DIRN_STOP;
                     elevio_motorDirection(DIRN_STOP); 
                 }
-            }
-            prevFloor = currFloor;
+                prevFloor = currFloor;
+            }            
             break;
-
         }
         case Down: {
             if (elevio_stopButton()) {                       
@@ -165,8 +166,8 @@ int main(){
                     currDir = DIRN_STOP; 
                     elevio_motorDirection(DIRN_STOP); 
                 }
-            }
-            prevFloor = currFloor;
+                prevFloor = currFloor;
+            }            
             break;
         }
         case Stop: {
