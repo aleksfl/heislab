@@ -7,6 +7,7 @@
 
 int main(){    
     int currDir = DIRN_STOP;
+    int stopDir = DIRN_STOP;
     int currState = Init;
     int prevFloor = -1;
     int k = 0;
@@ -85,16 +86,13 @@ int main(){
                         }
                     }       
                 }         
-                int lowestDistance = 0;
+                int lowestDistance = -1;
                 int lowestDistanceFloor = -1;
                 for(int f = 0; f<N_FLOORS; f++) {
                     for(int b = 0; b<N_BUTTONS; b++){
                         if (matQueue[f][b]) {
-                            int dist = calculateDistance(floor, f);
-                            if (dist == 0) {
-                                printf("Current floor not removed from queue");
-                            } 
-                            if (lowestDistance == 0 || dist < lowestDistance) {
+                            int dist = calculateDistance(floor, f);                            
+                            if (lowestDistance == -1 || dist < lowestDistance) {
                             lowestDistance = dist;
                             lowestDistanceFloor = f;
                             }
@@ -105,7 +103,23 @@ int main(){
                     printf("floor: %d \n",floor);
                 }
                 if (lowestDistanceFloor != -1 && lowestDistance != 0) {
-                        if(floor>lowestDistanceFloor) {
+                        if (lowestDistance == 0) {
+                                switch (stopDir) {
+                                    case DIRN_DOWN:
+                                        currDir = DIRN_UP;
+                                        currState = Up;
+                                        elevio_motorDirection(DIRN_UP);
+                                        break;
+                                    case DIRN_UP:
+                                        currDir = DIRN_DOWN;
+                                        currState = Down;
+                                        elevio_motorDirection(DIRN_DOWN);
+                                        break;
+                                }
+                                currDir = DIRN_DOWN;
+                                currState = Down;
+                                elevio_motorDirection(DIRN_DOWN);
+                        } else if(floor>lowestDistanceFloor) {
                                 currDir = DIRN_DOWN;
                                 currState = Down;
                                 elevio_motorDirection(DIRN_DOWN);
@@ -171,6 +185,7 @@ int main(){
             break;
         }
         case Stop: {
+            stopDir = currDir;
             currDir = DIRN_STOP;
             elevio_motorDirection(DIRN_STOP);                          
             ClearQueue();             
