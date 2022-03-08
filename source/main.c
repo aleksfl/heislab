@@ -13,9 +13,9 @@ int main(){
     int k = 0;
     while(1){
         int currFloor = elevio_floorSensor();
-        if(!k%20) {
-             printf("Current floor: %d \n",currFloor);
-         }
+         //if(!k%20) {
+         //    printf("Current floor: %d \n",currFloor);
+         //}
          if(k==100) {
              for(int f = 3; f>=0; f--) {
                  printf("\n");
@@ -28,7 +28,7 @@ int main(){
         }
         switch (currState){
         case Init: {
-            printf("Initializing");
+            printf("Initializing\n");
             elevio_init();
             elevio_stopLamp(0);             
             elevio_doorOpenLamp(0);
@@ -81,6 +81,7 @@ int main(){
                     for(int b = 0; b<N_BUTTONS; b++){
                         if (matQueue[currFloor][b]) {
                             RemoveFromQueue(currFloor);
+                            printf("wait 1");
                             currState = Wait;
                             break;
                         }
@@ -99,12 +100,9 @@ int main(){
                         }
                     }
                 }
-                if (currFloor == -1) {
-                    printf("floor: %d \n",floor);
-                }
+                
                 if (lowestDistanceFloor != -1 && lowestDistance != -1) {
                         if (lowestDistance == 0) {
-                                printf("stopDir: %d \n",stopDir);
                                 switch (stopDir) {
                                     case DIRN_DOWN:
                                         currDir = DIRN_UP;
@@ -143,11 +141,13 @@ int main(){
                 for(int b = 0; b<N_BUTTONS; b++){
                     if (matQueue[currFloor][b]) {
                         RemoveFromQueue(currFloor);
+                        printf("wait 2");
                         currState = Wait;
                         break;
                     }
                 }
                 if(currFloor == (N_FLOORS-1)) {
+                    printf("wait 3");
                     currState = Wait;
                     currDir = DIRN_STOP;
                     elevio_motorDirection(DIRN_STOP); 
@@ -169,11 +169,13 @@ int main(){
                 for(int b = 0; b<N_BUTTONS; b++){
                     if (matQueue[currFloor][b]) {
                         RemoveFromQueue(currFloor);
+                        printf("wait 4");
                         currState = Wait;
                         break;
                     }
                 }
                 if(currFloor == 0) {
+                    printf("wait 5");
                     currState = Wait;
                     currDir = DIRN_STOP; 
                     elevio_motorDirection(DIRN_STOP); 
@@ -195,6 +197,7 @@ int main(){
              if (elevio_floorSensor() == -1) {
                 currState = Standby;
              }  else {
+                 printf("wait 6");
                 currState = Wait;      
              }             
              break;       
@@ -207,6 +210,7 @@ int main(){
             }
             CheckButtons();      
             if (!elevio_obstruction()) {
+                printf("wait 7");
                 currState = Wait;
             }
         }
