@@ -9,7 +9,7 @@ void TryOpenDoor(void) {
 	// Only open door if it is closed
 	if (DoorState == 0) {
 		// Only open door when in valid floor
-		if (elevio_floorSensor() != -1) {
+		if (elevio_floorSensor() != UNDEFINED_FLOOR) {
 			DoorState = 1;
 		}
 
@@ -28,9 +28,17 @@ void TryCloseDoor(void) {
 	elevio_doorOpenLamp(DoorState);
 }
 
+// Only used by wait state
 void CheckButtons(void) {
+CheckButtons(UNDEFINED_FLOOR);
+}
+
+void CheckButtons(int currFloor) {
 	if (!elevio_stopButton()) {   
         for(int f = 0; f<N_FLOORS; f++) {
+			if (f == currFloor) {
+				continue;
+			}
             for(int b = 0; b<N_BUTTONS; b++){
 				if (!matQueue[f][b]) {
 					int btnPressed = elevio_callButton(f, b);

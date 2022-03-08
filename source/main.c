@@ -9,7 +9,7 @@ int main(){
     int currDir = DIRN_STOP;
     int stopDir = DIRN_STOP;
     int currState = Init;
-    int prevFloor = -1;
+    int prevFloor = UNDEFINED_FLOOR;
     int k = 0;
     while(1){
         int currFloor = elevio_floorSensor();
@@ -33,9 +33,9 @@ int main(){
             elevio_stopLamp(0);             
             elevio_doorOpenLamp(0);
             ClearQueue();
-            if (elevio_floorSensor() == -1) {
+            if (elevio_floorSensor() == UNDEFINED_FLOOR) {
                 elevio_motorDirection(DIRN_DOWN);
-                while (elevio_floorSensor() == -1) {
+                while (elevio_floorSensor() == UNDEFINED_FLOOR) {
                     // Do nothing, floor is not defined
                     milliSleep(10);
                 }                              
@@ -75,7 +75,7 @@ int main(){
                 }
             } else {
                 int floor = currFloor;
-                if (currFloor == -1) {
+                if (currFloor == UNDEFINED_FLOOR) {
                     floor = prevFloor;
                 } else {
                     for(int b = 0; b<N_BUTTONS; b++){
@@ -87,13 +87,13 @@ int main(){
                         }
                     }       
                 }         
-                int lowestDistance = -1;
-                int lowestDistanceFloor = -1;
+                int lowestDistance = UNDEFINED_DISTANCE;
+                int lowestDistanceFloor = UNDEFINED_FLOOR;
                 for(int f = 0; f<N_FLOORS; f++) {
                     for(int b = 0; b<N_BUTTONS; b++){
                         if (matQueue[f][b]) {
                             int dist = calculateDistance(floor, f);                            
-                            if (lowestDistance == -1 || dist < lowestDistance) {
+                            if (lowestDistance == UNDEFINED_DISTANCE || dist < lowestDistance) {
                             lowestDistance = dist;
                             lowestDistanceFloor = f;
                             }
@@ -101,7 +101,7 @@ int main(){
                     }
                 }
                 
-                if (lowestDistanceFloor != -1 && lowestDistance != -1) {
+                if (lowestDistanceFloor != UNDEFINED_FLOOR && lowestDistance != UNDEFINED_DISTANCE) {
                         if (lowestDistance == 0) {
                                 switch (stopDir) {
                                     case DIRN_DOWN:
@@ -190,7 +190,7 @@ int main(){
                  milliSleep(10);
              }
              elevio_stopLamp(0);             
-             if (elevio_floorSensor() == -1) {
+             if (elevio_floorSensor() == UNDEFINED_FLOOR) {
                 currState = Standby;
              }  else {
                 currState = Wait;      
@@ -217,7 +217,7 @@ int main(){
                 currState = Stop;
                 break;                                
                 }                
-                CheckButtons();                                
+                CheckButtons(currFloor);                                
                 milliSleep(10);
             }                        
             

@@ -3,6 +3,9 @@
 extern int DoorState;
 extern int matQueue[N_FLOORS][N_BUTTONS];
 
+#define UNDEFINED_FLOOR -1
+#define UNDEFINED_DISTANCE -1
+
 typedef enum {
     Init,            
     Standby,               
