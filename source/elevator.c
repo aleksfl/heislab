@@ -3,6 +3,7 @@
 
 // 0 indicates door is closed, 1 that it is open
 int DoorState = 0;
+int StopLampState = 0;
 int matQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
 void TryOpenDoor(void) {

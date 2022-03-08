@@ -1,6 +1,7 @@
 #include "driver/elevio.h"
 
 extern int DoorState;
+extern int StopLampState;
 extern int matQueue[N_FLOORS][N_BUTTONS];
 
 typedef enum {
