@@ -165,7 +165,7 @@ int main(){
             currDir = DIRN_STOP;
             ClearQueue();             
             elevio_stopLamp(1);             
-             while (!elevio_stopButton()) {
+             while (elevio_stopButton()) {
                  milliSleep(10);
              }
              if (elevio_floorSensor() == -1) {
@@ -196,7 +196,7 @@ int main(){
                 } else {                    
                 elevio_stopLamp(0);                                  
                 }
-                if (i ==1 ) {
+                if (i==1) {
                     TryOpenDoor();
                 }
                 CheckButtons();                                
