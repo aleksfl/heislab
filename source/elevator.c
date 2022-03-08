@@ -30,10 +30,10 @@ void TryCloseDoor(void) {
 
 // Only used by wait state
 void CheckButtons(void) {
-CheckButtons(UNDEFINED_FLOOR);
+CheckButtonsWithFloor(UNDEFINED_FLOOR);
 }
 
-void CheckButtons(int currFloor) {
+void CheckButtonsWithFloor(int currFloor) {
 	if (!elevio_stopButton()) {   
         for(int f = 0; f<N_FLOORS; f++) {
 			if (f == currFloor) {

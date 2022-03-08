@@ -19,7 +19,9 @@ typedef enum {
 
 void TryOpenDoor(void);
 void TryCloseDoor(void);
+
 void CheckButtons(void);
+void CheckButtonsWithFloor(int currFloor);
 
 void ClearQueue(void);
 
