@@ -35,7 +35,7 @@ void CheckButtons(void) {
                 int btnPressed = elevio_callButton(f, b);
                 if (btnPressed) {
                     matQueue[f][b] = 1;
-			printf("Button being pressed at floor %d, type %d",f,b);
+					//printf("Button being pressed at floor %d, type %d",f,b);
                     elevio_buttonLamp(f, b, btnPressed);
                 }
             }
