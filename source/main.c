@@ -116,10 +116,7 @@ int main(){
                                         currState = Down;
                                         elevio_motorDirection(DIRN_DOWN);
                                         break;
-                                }
-                                currDir = DIRN_DOWN;
-                                currState = Down;
-                                elevio_motorDirection(DIRN_DOWN);
+                                }                                
                         } else if(floor>lowestDistanceFloor) {
                                 currDir = DIRN_DOWN;
                                 currState = Down;
