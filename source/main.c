@@ -104,6 +104,7 @@ int main(){
                 }
                 if (lowestDistanceFloor != -1 && lowestDistance != 0) {
                         if (lowestDistance == 0) {
+                                printf("stopDir: %d \n",stopDir);
                                 switch (stopDir) {
                                     case DIRN_DOWN:
                                         currDir = DIRN_UP;
