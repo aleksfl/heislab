@@ -82,7 +82,7 @@ int main(){
                 for(int f = 0; f<N_FLOORS; f++) {
                     for(int b = 0; b<N_BUTTONS; b++){
                         if (matQueue[f][b]) {
-                            int dist = pow((currFloor - f), 2);
+                            int dist = (currFloor - f)*(currFloor - f);
                             if (dist == 0) printf("Current floor not removed from queue");
                             if (lowestDistance == 0 || dist < lowestDistance) {
                             lowestDistance = dist;
@@ -202,8 +202,10 @@ int main(){
                 milliSleep(10);
             }
             // return to previous course
+            if (StopLampState == 1) {
             elevio_stopLamp(0);
-            TryCloseDor();            
+            }
+            TryCloseDoor;            
             if (DoorState == 1 && elevio_obstruction()) {
                 currState = Obstructed;
             } else {
