@@ -6,6 +6,7 @@
 
 
 int main(){
+    int StopLampState = 0;
     int currDir = DIRN_STOP;
     int currState = Init;
     int prevFloor = -1;
