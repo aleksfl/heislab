@@ -205,7 +205,7 @@ int main(){
             if (StopLampState == 1) {
             elevio_stopLamp(0);
             }
-            TryCloseDoor;            
+            TryCloseDoor();            
             if (DoorState == 1 && elevio_obstruction()) {
                 currState = Obstructed;
             } else {
