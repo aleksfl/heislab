@@ -138,12 +138,10 @@ int main(){
                 if(prevFloor!=currFloor){
                     elevio_floorIndicator(currFloor);
                 }
-                for(int b = 0; b<N_BUTTONS; b++){
-                    if (matQueue[currFloor][b]) {
-                        RemoveFromQueue(currFloor);                        
-                        currState = Wait;
-                        break;
-                    }
+                if(matQueue[currFloor][BUTTON_HALL_UP] || matQueue[currFloor][BUTTON_CAB]){
+                    RemoveFromQueue(currFloor);
+                    elevio_motorDirection(DIRN_STOP); 
+                    currState = Wait;
                 }
                 if(currFloor == (N_FLOORS-1)) {                    
                     currState = Wait;
@@ -164,12 +162,10 @@ int main(){
                 if(prevFloor!=currFloor){
                     elevio_floorIndicator(currFloor);
                 }
-                for(int b = 0; b<N_BUTTONS; b++){
-                    if (matQueue[currFloor][b]) {
-                        RemoveFromQueue(currFloor);                        
-                        currState = Wait;
-                        break;
-                    }
+               if(matQueue[currFloor][BUTTON_HALL_DOWN] || matQueue[currFloor][BUTTON_CAB]){
+                    RemoveFromQueue(currFloor);                    
+                    elevio_motorDirection(DIRN_STOP); 
+                    currState = Wait;
                 }
                 if(currFloor == 0) {                    
                     currState = Wait;
