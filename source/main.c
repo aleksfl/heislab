@@ -102,7 +102,7 @@ int main(){
                 if (currFloor == -1) {
                     printf("floor: %d \n",floor);
                 }
-                if (lowestDistanceFloor != -1 && lowestDistance != 0) {
+                if (lowestDistanceFloor != -1 && lowestDistance != -1) {
                         if (lowestDistance == 0) {
                                 printf("stopDir: %d \n",stopDir);
                                 switch (stopDir) {
