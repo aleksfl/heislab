@@ -75,6 +75,7 @@ int main(){
                     if (matQueue[currFloor][b]) {
                         RemoveFromQueue(currFloor);
                         currState = Wait;
+                        break;
                     }
                 }                
                 int lowestDistance = 0;
@@ -83,6 +84,7 @@ int main(){
                     for(int b = 0; b<N_BUTTONS; b++){
                         if (matQueue[f][b]) {
                             int dist = pow((currFloor - f), 2);
+                            if (dist == 0) printf("Current floor not removed from queue");
                             if (lowestDistance == 0 || dist < lowestDistance) {
                             lowestDistance = dist;
                             lowestDistanceFloor = f;
@@ -91,7 +93,7 @@ int main(){
                     }
                 }
 
-                if (lowestDistanceFloor != -1) {
+                if (lowestDistanceFloor != -1 && lowestDistance != 0) {
                         if(currFloor>lowestDistanceFloor) {
                                 currDir = DIRN_DOWN;
                                 currState = Down;
@@ -117,10 +119,12 @@ int main(){
                 if(prevFloor!=currFloor){
                     elevio_floorIndicator(currFloor);
                 }
-                if(matQueue[currFloor][BUTTON_HALL_UP] || matQueue[currFloor][BUTTON_CAB]){
-                    RemoveFromQueue(currFloor);
-                    elevio_motorDirection(DIRN_STOP); 
-                    currState = Wait;
+                for(int b = 0; b<N_BUTTONS; b++){
+                    if (matQueue[currFloor][b]) {
+                        RemoveFromQueue(currFloor);
+                        currState = Wait;
+                        break;
+                    }
                 }
                 if(currFloor == (N_FLOORS-1)) {
                     currState = Wait;
@@ -143,9 +147,12 @@ int main(){
                 if(prevFloor!=currFloor){
                     elevio_floorIndicator(currFloor);
                 }
-                if(matQueue[currFloor][BUTTON_HALL_DOWN] || matQueue[currFloor][BUTTON_CAB]){
-                    RemoveFromQueue(currFloor);
-                    currState = Wait;
+                for(int b = 0; b<N_BUTTONS; b++){
+                    if (matQueue[currFloor][b]) {
+                        RemoveFromQueue(currFloor);
+                        currState = Wait;
+                        break;
+                    }
                 }
                 if(currFloor == 0) {
                     currState = Wait;
