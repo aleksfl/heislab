@@ -32,12 +32,14 @@ void CheckButtons(void) {
 	if (!elevio_stopButton()) {   
         for(int f = 0; f<N_FLOORS; f++) {
             for(int b = 0; b<N_BUTTONS; b++){
-                int btnPressed = elevio_callButton(f, b);
-                if (btnPressed) {
-                    matQueue[f][b] = 1;
-					printf("Button being pressed at floor %d, type %d\n",f,b);
-                    elevio_buttonLamp(f, b, btnPressed);
-                }
+				if (!matQueue[f][b]) {
+					int btnPressed = elevio_callButton(f, b);
+					if (btnPressed) {
+						matQueue[f][b] = 1;
+						printf("Button being pressed at floor %d, type %d\n",f,b);
+						elevio_buttonLamp(f, b, btnPressed);
+					}
+				}
             }
         }
     }

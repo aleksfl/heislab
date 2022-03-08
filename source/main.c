@@ -125,7 +125,7 @@ int main(){
                                 elevio_motorDirection(DIRN_UP);
                             }
                 }
-            }
+            }            
             break;
         }
         case Up: {
