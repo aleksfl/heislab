@@ -70,19 +70,24 @@ int main(){
                     }
                 }
             } else {
-                for(int b = 0; b<N_BUTTONS; b++){
-                    if (matQueue[currFloor][b]) {
-                        RemoveFromQueue(currFloor);
-                        currState = Wait;
-                        break;
-                    }
-                }                
+                int floor = currFloor;
+                if (currFloor == -1) {
+                    floor = prevFloor;
+                } else {
+                    for(int b = 0; b<N_BUTTONS; b++){
+                        if (matQueue[currFloor][b]) {
+                            RemoveFromQueue(currFloor);
+                            currState = Wait;
+                            break;
+                        }
+                    }       
+                }         
                 int lowestDistance = 0;
                 int lowestDistanceFloor = -1;
                 for(int f = 0; f<N_FLOORS; f++) {
                     for(int b = 0; b<N_BUTTONS; b++){
                         if (matQueue[f][b]) {
-                            int dist = (currFloor - f)*(currFloor - f);
+                            int dist = (floor - f)*(floor - f);
                             if (dist == 0) {
                                 printf("Current floor not removed from queue");
                             } 
@@ -95,11 +100,11 @@ int main(){
                 }
 
                 if (lowestDistanceFloor != -1 && lowestDistance != 0) {
-                        if(currFloor>lowestDistanceFloor) {
+                        if(floor>lowestDistanceFloor) {
                                 currDir = DIRN_DOWN;
                                 currState = Down;
                                 elevio_motorDirection(DIRN_DOWN);
-                            } else if(currFloor<lowestDistanceFloor) {
+                            } else if(floor<lowestDistanceFloor) {
                                 currDir = DIRN_UP;
                                 currState = Up;
                                 elevio_motorDirection(DIRN_UP);
