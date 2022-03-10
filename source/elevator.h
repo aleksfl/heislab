@@ -1,7 +1,7 @@
 #include "driver/elevio.h"
 
 extern int DoorState;
-extern int matrixQueue[N_FLOORS][N_BUTTONS];
+extern int RequestMatrix[N_FLOORS][N_BUTTONS];
 
 #define UNDEFINED_FLOOR -1
 #define UNDEFINED_DISTANCE -1
@@ -42,5 +42,6 @@ void CheckButtonsWithFloor(int currFloor);
 * @param[in] currFloor Current floor to ignore requests to.
 */
 void ClearQueue(void);
+
 
 void RemoveFromQueue(int floor);

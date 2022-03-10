@@ -44,7 +44,7 @@ int main(){
             if(currDir==DIRN_UP) {
                 currDir = DIRN_STOP;
                 for(int f = (currFloor+1); f<N_FLOORS; f++) {
-                    if(matrixQueue[f][BUTTON_HALL_UP] || matrixQueue[f][BUTTON_CAB]) {
+                    if(RequestMatrix[f][BUTTON_HALL_UP] || RequestMatrix[f][BUTTON_CAB]) {
                         currDir = DIRN_UP;
                         currState = UP;
                         elevio_motorDirection(DIRN_UP);
@@ -54,7 +54,7 @@ int main(){
             else if(currDir==DIRN_DOWN) {
                 currDir = DIRN_STOP;
                 for(int f = (currFloor-1); f>=0; f--) {
-                    if(matrixQueue[f][BUTTON_HALL_DOWN] || matrixQueue[f][BUTTON_CAB]) {
+                    if(RequestMatrix[f][BUTTON_HALL_DOWN] || RequestMatrix[f][BUTTON_CAB]) {
                         currDir = DIRN_DOWN;
                         currState = DOWN;
                         elevio_motorDirection(DIRN_DOWN);
@@ -68,7 +68,7 @@ int main(){
                 } 
                 else {
                     for(int b = 0; b<N_BUTTONS; b++){
-                        if (matrixQueue[currFloor][b]) {
+                        if (RequestMatrix[currFloor][b]) {
                             RemoveFromQueue(currFloor);
                             currState = WAIT;
                             break;
@@ -79,7 +79,7 @@ int main(){
                 int lowestDistanceFloor = UNDEFINED_FLOOR;
                 for(int f = 0; f<N_FLOORS; f++) {
                     for(int b = 0; b<N_BUTTONS; b++){
-                        if (matrixQueue[f][b]) {
+                        if (RequestMatrix[f][b]) {
                             int dist = calculateDistance(floor, f);                            
                             if (lowestDistance == UNDEFINED_DISTANCE || dist < lowestDistance) {
                             lowestDistance = dist;
@@ -130,7 +130,7 @@ int main(){
                 if(prevFloor!=currFloor){
                     elevio_floorIndicator(currFloor);
                 }
-                if(matrixQueue[currFloor][BUTTON_HALL_UP] || matrixQueue[currFloor][BUTTON_CAB]){
+                if(RequestMatrix[currFloor][BUTTON_HALL_UP] || RequestMatrix[currFloor][BUTTON_CAB]){
                     RemoveFromQueue(currFloor);
                     elevio_motorDirection(DIRN_STOP); 
                     currState = WAIT;
@@ -154,7 +154,7 @@ int main(){
                 if(prevFloor!=currFloor){
                     elevio_floorIndicator(currFloor);
                 }
-                if(matrixQueue[currFloor][BUTTON_HALL_DOWN] || matrixQueue[currFloor][BUTTON_CAB]){
+                if(RequestMatrix[currFloor][BUTTON_HALL_DOWN] || RequestMatrix[currFloor][BUTTON_CAB]){
                     RemoveFromQueue(currFloor);                    
                     elevio_motorDirection(DIRN_STOP); 
                     currState = WAIT;
