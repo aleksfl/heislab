@@ -1,3 +1,8 @@
+/**
+* @file
+* @brief Miscellanious functions.
+*/
+
 #pragma once
 #include <time.h>
 
