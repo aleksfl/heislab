@@ -3,7 +3,7 @@
 
 // 0 indicates door is closed, 1 that it is open
 int DoorState = 0;
-int matQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
+int matrixQueue[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
 void TryOpenDoor(void) {
 	// Only open door if it is closed
@@ -40,10 +40,10 @@ void CheckButtonsWithFloor(int currFloor) {
 				continue;
 			}
             for(int b = 0; b<N_BUTTONS; b++){
-				if (!matQueue[f][b]) {
+				if (!matrixQueue[f][b]) {
 					int btnPressed = elevio_callButton(f, b);
 					if (btnPressed) {
-						matQueue[f][b] = 1;
+						matrixQueue[f][b] = 1;
 						printf("Button being pressed at floor %d, type %d\n",f,b);
 						elevio_buttonLamp(f, b, btnPressed);
 					}
@@ -57,7 +57,7 @@ void ClearQueue(void) {
 	for(int i = 0; i<N_FLOORS; i++) {
 		for(int j = 0; j<N_BUTTONS; j++){			
 			elevio_buttonLamp(i, j, 0);			
-			matQueue[i][j] = 0;
+			matrixQueue[i][j] = 0;
 		}
 	}	
 }
@@ -65,7 +65,7 @@ void ClearQueue(void) {
 void RemoveFromQueue(int floor) {
 	 for(int j = 0; j<N_BUTTONS; j++){        
         elevio_buttonLamp(floor, j, 0);			        
-        matQueue[floor][j] = 0;
+        matrixQueue[floor][j] = 0;
     }
 }
 

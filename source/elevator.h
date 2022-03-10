@@ -1,19 +1,19 @@
 #include "driver/elevio.h"
 
 extern int DoorState;
-extern int matQueue[N_FLOORS][N_BUTTONS];
+extern int matrixQueue[N_FLOORS][N_BUTTONS];
 
 #define UNDEFINED_FLOOR -1
 #define UNDEFINED_DISTANCE -1
 
 typedef enum {
-    Init,            
-    Standby,               
-    Up,
-    Down,
-    Stop,
-    Obstructed,
-    Wait                    
+    INIT,            
+    STANDBY,               
+    UP,
+    DOWN,
+    STOP,
+    OBSTRUCTED,
+    WAIT                    
 } ElevState;
 
 
