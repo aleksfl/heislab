@@ -8,26 +8,12 @@
 int main(){    
     int currDir = DIRN_STOP;
     int stopDir = DIRN_STOP;
-    int currState = Init;
+    int currState = INIT;
     int prevFloor = UNDEFINED_FLOOR;
-    int k = 0;
     while(1){
         int currFloor = elevio_floorSensor();
-         //if(!k%20) {
-         //    printf("Current floor: %d \n",currFloor);
-         //}
-         if(k==100) {
-             for(int f = 3; f>=0; f--) {
-                 printf("\n");
-                 for(int b = 0; b<N_BUTTONS; b++){
-                     printf(" %d",matQueue[f][b]);
-                 }
-             }
-             printf("\n");
-             k=0;
-        }
         switch (currState){
-        case Init: {
+        case INIT: {
             printf("Initializing\n");
             elevio_init();
             elevio_stopLamp(0);             
@@ -44,45 +30,47 @@ int main(){
             elevio_motorDirection(DIRN_STOP);  
             elevio_floorIndicator(floor);                              
             prevFloor = floor;   
-            currState = Standby;
+            currState = STANDBY;
             currDir = DIRN_STOP;
             break;
         }
-        case Standby: {    
+        case STANDBY: {    
             elevio_motorDirection(DIRN_STOP);    
             if (elevio_stopButton()) {                       
-                currState = Stop;                
+                currState = STOP;                
                 break;
             }
             CheckButtons();           
             if(currDir==DIRN_UP) {
                 currDir = DIRN_STOP;
                 for(int f = (currFloor+1); f<N_FLOORS; f++) {
-                    if(matQueue[f][BUTTON_HALL_UP] || matQueue[f][BUTTON_CAB]) {
+                    if(matrixQueue[f][BUTTON_HALL_UP] || matrixQueue[f][BUTTON_CAB]) {
                         currDir = DIRN_UP;
-                        currState = Up;
+                        currState = UP;
                         elevio_motorDirection(DIRN_UP);
                     }
                 }
-            } else if(currDir==DIRN_DOWN) {
+            } 
+            else if(currDir==DIRN_DOWN) {
                 currDir = DIRN_STOP;
                 for(int f = (currFloor-1); f>=0; f--) {
-                    if(matQueue[f][BUTTON_HALL_DOWN] || matQueue[f][BUTTON_CAB]) {
+                    if(matrixQueue[f][BUTTON_HALL_DOWN] || matrixQueue[f][BUTTON_CAB]) {
                         currDir = DIRN_DOWN;
-                        currState = Down;
+                        currState = DOWN;
                         elevio_motorDirection(DIRN_DOWN);
                     }
                 }
-            } else {
+            } 
+            else {
                 int floor = currFloor;
                 if (currFloor == UNDEFINED_FLOOR) {
                     floor = prevFloor;
-                } else {
+                } 
+                else {
                     for(int b = 0; b<N_BUTTONS; b++){
-                        if (matQueue[currFloor][b]) {
+                        if (matrixQueue[currFloor][b]) {
                             RemoveFromQueue(currFloor);
-                            printf("wait 1 : %d\n", currFloor);
-                            currState = Wait;
+                            currState = WAIT;
                             break;
                         }
                     }       
@@ -91,7 +79,7 @@ int main(){
                 int lowestDistanceFloor = UNDEFINED_FLOOR;
                 for(int f = 0; f<N_FLOORS; f++) {
                     for(int b = 0; b<N_BUTTONS; b++){
-                        if (matQueue[f][b]) {
+                        if (matrixQueue[f][b]) {
                             int dist = calculateDistance(floor, f);                            
                             if (lowestDistance == UNDEFINED_DISTANCE || dist < lowestDistance) {
                             lowestDistance = dist;
@@ -102,35 +90,39 @@ int main(){
                 }
                 
                 if (lowestDistanceFloor != UNDEFINED_FLOOR && lowestDistance != UNDEFINED_DISTANCE) {
-                        if (lowestDistance == 0) {
-                                switch (stopDir) {
-                                    case DIRN_DOWN:
-                                        currDir = DIRN_UP;
-                                        currState = Up;
-                                        elevio_motorDirection(DIRN_UP);
-                                        break;
-                                    case DIRN_UP:
-                                        currDir = DIRN_DOWN;
-                                        currState = Down;
-                                        elevio_motorDirection(DIRN_DOWN);
-                                        break;
-                                }                                
-                        } else if(floor>lowestDistanceFloor) {
-                                currDir = DIRN_DOWN;
-                                currState = Down;
-                                elevio_motorDirection(DIRN_DOWN);
-                            } else if(floor<lowestDistanceFloor) {
+                    if (lowestDistance == 0) {
+                        switch (stopDir) {
+                            case DIRN_DOWN: {
                                 currDir = DIRN_UP;
-                                currState = Up;
+                                currState = UP;
                                 elevio_motorDirection(DIRN_UP);
+                                break;
                             }
+                            case DIRN_UP: {
+                                currDir = DIRN_DOWN;
+                                currState = DOWN;
+                                elevio_motorDirection(DIRN_DOWN);
+                                break;
+                            }
+                        }
+                    } 
+                    else if(floor>lowestDistanceFloor) {
+                        currDir = DIRN_DOWN;
+                        currState = DOWN;
+                        elevio_motorDirection(DIRN_DOWN);
+                    } 
+                    else if(floor<lowestDistanceFloor) {
+                        currDir = DIRN_UP;
+                        currState = UP;
+                        elevio_motorDirection(DIRN_UP);
+                    }
                 }
             }            
             break;
         }
-        case Up: {
+        case UP: {
             if (elevio_stopButton()) {                       
-                currState = Stop;                
+                currState = STOP;                
                 break;
             }
             CheckButtons();
@@ -138,13 +130,13 @@ int main(){
                 if(prevFloor!=currFloor){
                     elevio_floorIndicator(currFloor);
                 }
-                if(matQueue[currFloor][BUTTON_HALL_UP] || matQueue[currFloor][BUTTON_CAB]){
+                if(matrixQueue[currFloor][BUTTON_HALL_UP] || matrixQueue[currFloor][BUTTON_CAB]){
                     RemoveFromQueue(currFloor);
                     elevio_motorDirection(DIRN_STOP); 
-                    currState = Wait;
+                    currState = WAIT;
                 }
                 if(currFloor == (N_FLOORS-1)) {                    
-                    currState = Wait;
+                    currState = WAIT;
                     currDir = DIRN_STOP;
                     elevio_motorDirection(DIRN_STOP); 
                 }
@@ -152,9 +144,9 @@ int main(){
             }            
             break;
         }
-        case Down: {
+        case DOWN: {
             if (elevio_stopButton()) {                       
-                currState = Stop;                
+                currState = STOP;                
                 break;
             }
             CheckButtons();
@@ -162,13 +154,13 @@ int main(){
                 if(prevFloor!=currFloor){
                     elevio_floorIndicator(currFloor);
                 }
-               if(matQueue[currFloor][BUTTON_HALL_DOWN] || matQueue[currFloor][BUTTON_CAB]){
+                if(matrixQueue[currFloor][BUTTON_HALL_DOWN] || matrixQueue[currFloor][BUTTON_CAB]){
                     RemoveFromQueue(currFloor);                    
                     elevio_motorDirection(DIRN_STOP); 
-                    currState = Wait;
+                    currState = WAIT;
                 }
                 if(currFloor == 0) {                    
-                    currState = Wait;
+                    currState = WAIT;
                     currDir = DIRN_STOP; 
                     elevio_motorDirection(DIRN_STOP); 
                 }
@@ -176,7 +168,7 @@ int main(){
             }            
             break;
         }
-        case Stop: {
+        case STOP: {
             stopDir = currDir;
             currDir = DIRN_STOP;
             elevio_motorDirection(DIRN_STOP);                          
@@ -185,36 +177,36 @@ int main(){
             if (elevio_floorSensor() != UNDEFINED_FLOOR) {
                 TryOpenDoor();
             }
-             while (elevio_stopButton()) {
-                 milliSleep(10);
-             }
-             elevio_stopLamp(0);             
-             if (elevio_floorSensor() == UNDEFINED_FLOOR) {
-                currState = Standby;
-             }  else {
-                currState = Wait;      
-             }             
-             break;       
+            while (elevio_stopButton()) {
+                milliSleep(10);
+            }
+            elevio_stopLamp(0);             
+            if (elevio_floorSensor() == UNDEFINED_FLOOR) {
+            currState = STANDBY;
+            }  else {
+            currState = WAIT;      
+            }             
+            break;       
         }
-        case Obstructed: {
+        case OBSTRUCTED: {
             if (elevio_stopButton()) {                       
-                currState = Stop;
+                currState = STOP;
                 currDir = DIRN_STOP;
                 break;
             }
             CheckButtons();      
             if (!elevio_obstruction()) {                
-                currState = Wait;
+                currState = WAIT;
             }
         }
 
-        case Wait: {          
+        case WAIT: {          
             elevio_motorDirection(DIRN_STOP);                          
             TryOpenDoor();
             for (int i=1; i<=300; i++) {                
                 if (elevio_stopButton()) {                       
-                currState = Stop;
-                break;                                
+                    currState = STOP;
+                    break;                                
                 }                
                 CheckButtonsWithFloor(currFloor);                                
                 milliSleep(10);
@@ -222,19 +214,18 @@ int main(){
             
             TryCloseDoor();            
             if (DoorState == 1 && elevio_obstruction()) {
-                currState = Obstructed;
-            } else {
-                currState = Standby;
+                currState = OBSTRUCTED;
+            } 
+            else {
+                currState = STANDBY;
             }
-            
             break;
         }
 
         default:
-            currState = Init;
+            currState = INIT;
             break;
         }
-        k++;
     milliSleep(10);
     }
 }
