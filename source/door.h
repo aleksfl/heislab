@@ -5,8 +5,8 @@
 
 #pragma once
 
-//Inkluderer queue.h for å få tilgang til makroer
-#include "queue.h"                   
+//Inkluderer queue.h for å få tilgang til makroer         
+#include "utils.h"            
 #include "driver/elevio.h"
 
 /** Global variable to keep track of whether door is open or not.  */

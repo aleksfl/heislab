@@ -5,10 +5,10 @@ int RequestMatrix[N_FLOORS][N_BUTTONS] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 
 // Only used by wait state
 void CheckButtons(void) {
-CheckButtonsWithFloor(UNDEFINED_FLOOR);
+CheckButtonsExcludeFloor(UNDEFINED_FLOOR);
 }
 
-void CheckButtonsWithFloor(int currFloor) {
+void CheckButtonsExcludeFloor(int currFloor) {
 	if (!elevio_stopButton()) {   
         for(int f = 0; f<N_FLOORS; f++) {
 			if (f == currFloor) {

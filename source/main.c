@@ -250,7 +250,7 @@ int main(){
                 // If we check the buttons for the current floor here, we end up with double waits.
                 // Since we already are waiting at current floor, we can use this method to avoid checking current floor buttons.    
                 // This prevents the double wait issue.
-                CheckButtonsWithFloor(currFloor);                                
+                CheckButtonsExcludeFloor(currFloor);                                
                 milliSleep(10);
             }                        
             
