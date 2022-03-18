@@ -26,7 +26,7 @@ typedef enum {
 *
 * @param[in] miliseconds integer set to numer of milliseconds to wait for.
 */
-void milliSleep(int milliseconds);
+void MilliSleep(int milliseconds);
 
 /**
 * @brief Gives a measure of distance between two points, used only for comparison with distances from this function.
@@ -36,4 +36,4 @@ void milliSleep(int milliseconds);
 *
 * @return Square of numerical difference between points
 */
-int calculateDistance(int point1, int point2);
+int CalculateDistance(int point1, int point2);

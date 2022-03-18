@@ -34,7 +34,7 @@ int main(){
                 elevio_motorDirection(DIRN_DOWN);
                 while (elevio_floorSensor() == UNDEFINED_FLOOR) {
                     // Do nothing, floor is not defined
-                    milliSleep(10);
+                    MilliSleep(10);
                 }                              
             }
             int floor = elevio_floorSensor();
@@ -98,7 +98,7 @@ int main(){
                 for(int f = 0; f<N_FLOORS; f++) {
                     for(int b = 0; b<N_BUTTONS; b++){
                         if (RequestMatrix[f][b]) {
-                            int dist = calculateDistance(floor, f);                            
+                            int dist = CalculateDistance(floor, f);                            
                             if (lowestDistance == UNDEFINED_DISTANCE || dist < lowestDistance) {
                             lowestDistance = dist;
                             lowestDistanceFloor = f;
@@ -213,7 +213,7 @@ int main(){
                 TryOpenDoor();
             }
             while (elevio_stopButton()) {
-                milliSleep(10);
+                MilliSleep(10);
             }
             elevio_stopLamp(0);             
             if (elevio_floorSensor() == UNDEFINED_FLOOR) {
@@ -251,7 +251,7 @@ int main(){
                 // Since we already are waiting at current floor, we can use this method to avoid checking current floor buttons.    
                 // This prevents the double wait issue.
                 CheckButtonsExcludeFloor(currFloor);                                
-                milliSleep(10);
+                MilliSleep(10);
             }                        
             
             TryCloseDoor();            
@@ -270,7 +270,7 @@ int main(){
             currState = INIT;
             break;
         }
-    milliSleep(10);
+    MilliSleep(10);
     }
 }
 
