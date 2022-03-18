@@ -5,27 +5,13 @@
 
 #pragma once
 #include "driver/elevio.h"
+#include "utils.h"
 
 /** Global variable int matrix used to keep track of requests made by buttons.
  * Rows represent floors and columns represent types of buttons.
  * Values are set to either 1 or 0, where 1 represents an unprocessed request from a specific button.
   */
 extern int RequestMatrix[N_FLOORS][N_BUTTONS];
-
-#define UNDEFINED_FLOOR -1
-#define UNDEFINED_DISTANCE -1
-
-/** Enum for different states of main state machine */
-typedef enum {
-    INIT,            
-    STANDBY,               
-    UP,
-    DOWN,
-    STOP,
-    OBSTRUCTED,
-    WAIT                    
-} ElevState;
-
 
 /**
 * @brief Iterates through floor and cab request buttons to store request and turn on button light if they are pressed.
@@ -42,7 +28,7 @@ void CheckButtons(void);
 *
 * \param[out] RequestMatrix is updated based on pressed buttons.
 */
-void CheckButtonsWithFloor(int currFloor);
+void CheckButtonsExcludeFloor(int currFloor);
 
 /**
 * @brief Sets #RequestMatrix to null matrix and turns off all button lights.

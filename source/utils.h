@@ -6,6 +6,21 @@
 #pragma once
 #include <time.h>
 
+#define UNDEFINED_FLOOR -1
+#define UNDEFINED_DISTANCE -1
+
+/** Enum for different states of main state machine */
+typedef enum {
+    INIT,            
+    STANDBY,               
+    UP,
+    DOWN,
+    STOP,
+    OBSTRUCTED,
+    WAIT                    
+} ElevState;
+
+
 /**
 * @brief Convenience functions to sleep for a number of miliseconds.
 *
