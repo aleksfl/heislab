@@ -7,7 +7,7 @@
 
 //Inkluderer queue.h for å få tilgang til makroer         
 #include "utils.h"            
-#include "driver/elevio.h"
+#include "elevio.h"
 
 /** Global variable to keep track of whether door is open or not.  */
 extern int DoorState;

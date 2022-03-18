@@ -4,7 +4,7 @@
 */
 
 #pragma once
-#include "driver/elevio.h"
+#include "elevio.h"
 #include "utils.h"
 
 /** Global variable int matrix used to keep track of requests made by buttons.
