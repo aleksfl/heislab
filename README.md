@@ -1,4 +1,2 @@
 # heislab
-Aleksander^2 sin heislab
-Pls no kok
-no really no kok please
+Styringsystem for heis i fag TTK4235
